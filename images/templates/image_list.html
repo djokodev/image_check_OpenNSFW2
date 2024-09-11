@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>images..</h3>
+{% if images %}
+    <div class="image-grid">
+    {% for image in images %}
+        <div class="image-item">
+            <img src="{{ image.image.url }}" alt="Image utilisateur">
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>No images have yet been released.</p>
+    <p><em>trying to publish an adult image 😏...</em></p>
+{% endif %}
+<a href="{% url 'upload_image' %}" class="upload-button">Upload image</a>
+{% endblock %}

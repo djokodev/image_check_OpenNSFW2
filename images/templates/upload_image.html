@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<h2>Téléverser une image</h2>
+<form method="post" enctype="multipart/form-data" id="upload-form">
+    {% csrf_token %}
+    <div class="upload-container">
+        <label for="{{ form.image.id_for_label }}" class="upload-area">
+            <i class="fas fa-image"></i>
+            <span id="file-name">insert image</span>
+        </label>
+        {{ form.image }}
+    </div>
+    <button type="submit" class="btn btn-primary">Publier</button>
+</form>
+
+<style>
+.upload-area span.file-selected {
+    color: #ffd700 !important;
+    font-weight: bold;
+}
+</style>
+
+<script>
+document.getElementById('{{ form.image.id_for_label }}').addEventListener('change', function(event) {
+    var fileName = event.target.files[0].name;
+    var fileNameSpan = document.getElementById('file-name');
+    fileNameSpan.textContent = fileName;
+    fileNameSpan.classList.add('file-selected');
+});
+</script>
+{% endblock %}
